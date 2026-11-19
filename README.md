@@ -40,9 +40,9 @@ up afterwards.
 | 20 | Static website on S3 | Let S3 serve a website made of ready-made files, without any server, and see why this is the only bucket that should be public. |
 | 21 | cfn-lint in VS Code | Find errors in a CloudFormation template before deploying it, in VS Code and in the terminal, and compare with `validate-template`. |
 | 22 | Stack termination protection | Protect a CloudFormation stack from being deleted by mistake, and compare with DeletionPolicy in the template. |
-| 23 | Which server answers? | A small PHP page on shared storage shows which instance and zone behind a load balancer answered the request. |
-| 24 | Fewer servers at night | Use scheduled actions to scale an Auto Scaling group down in the evening and up again on weekday mornings. |
-| 25 | Load test with ab | Send HTTP requests through a load balancer with ApacheBench in CloudShell, and read response times and errors. |
+| 23 | [Which server answers?](23-which-server-answers/) | A small PHP page on shared storage shows which instance and zone behind a load balancer answered the request. |
+| 24 | [Fewer servers at night](24-fewer-servers-at-night/) | Use scheduled actions to scale an Auto Scaling group down in the evening and up again on weekday mornings. |
+| 25 | [Load test with ab](25-load-test-with-ab/) | Send HTTP requests through a load balancer with ApacheBench in CloudShell, and read response times and errors. |
 | 26 | Sticky sessions | Keep a visitor on the same server with load balancer stickiness, and see why stateless servers are the better solution. |
 | 27 | Fixed response from the load balancer | Add a listener rule that lets the load balancer answer itself, for example with a maintenance page, without asking any server. |
 | 28 | Alarm as SMS via SNS | Add an SMS subscription to an SNS topic so that urgent alarms reach a phone, not only an inbox. |
