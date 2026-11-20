@@ -1,0 +1,40 @@
+# broken-network-template.yaml
+# Broken network template for trying out cfn-lint.
+# It contains three deliberate errors. Do NOT deploy this file.
+#   1. Misspelled property: CidrBlok (should be CidrBlock)
+#   2. Wrong type: MapPublicIpOnLaunch must be true or false
+#   3. !Ref to a resource that does not exist: MyIgw
+# Open it in VS Code, or run cfn-lint on it in a terminal.
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Broken network template for the cfn-lint guide
+
+Resources:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlok: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: broken-vpc
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: maybe
+      Tags:
+        - Key: Name
+          Value: broken-public-subnet
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+
+  DefaultRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref MyIgw
