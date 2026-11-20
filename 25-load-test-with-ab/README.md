@@ -11,7 +11,7 @@ A small and short HTTP load test against a load balancer with ab (ApacheBench), 
 - That gives numbers on how fast the site answers when many visit it at once, and whether any requests fail. It says more about how visitors experience the site than a CPU graph.
 - You can also see whether the load is enough for CPU to go above the group's target. It is not certain in a short test, and that is also a result.
 
-Use it to test how the site is experienced. To be sure of seeing target tracking scale out, a CPU load test on a server is simpler, see [Compare with a CPU load test](#compare-with-a-cpu-load-test).
+Use it to test how the site is experienced. To be sure of seeing [target tracking](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html) scale out, a CPU load test on a server is simpler, see [Compare with a CPU load test](#compare-with-a-cpu-load-test).
 
 ## How it works
 

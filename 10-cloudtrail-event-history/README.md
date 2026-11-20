@@ -15,7 +15,7 @@ CloudTrail Event history is the account's log of who did what. It exists in ever
 ## How it works
 
 - Every time someone does something in AWS, in the console, with the AWS CLI or from a server with a role, it becomes a call to AWS. CloudTrail records the calls.
-- Event history shows the events from the **last 90 days**. Older events disappear from Event history. To keep them longer, you need a trail.
+- Event history shows the events from the **last 90 days**. Older events disappear from Event history. To keep them longer, you need a [trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html).
 - Event history contains **management events**: actions that create, change or delete something, such as starting an instance or creating a user.
 - The events are stored **in the region where they happened**. An instance started in one region only shows when that region is chosen at the top right.
 - IAM is global, and according to AWS, CloudTrail logs IAM events in the region **US East (N. Virginia)**. To see who created a user, you must change to that region.
@@ -86,7 +86,7 @@ The guide only reads information. There is nothing to remove.
 
 ## Good to know
 
-- **Event history shows management events.** Reading or uploading single files in S3 are data events, and they do not show here.
+- **Event history shows management events.** Reading or uploading single files in S3 are [data events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html), and they do not show here.
 - **To keep events longer than 90 days,** or to include data events, you need to create a trail that saves the logs in an S3 bucket. It can cost money.
 
 ## Common errors

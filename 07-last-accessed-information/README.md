@@ -71,7 +71,7 @@ The report is produced in the background. If `JobStatus` says `IN_PROGRESS`, run
 1. Choose **User groups** in the menu on the left and click the group. On a group, the tab is called **Access Advisor**, not Last Accessed, but it shows the same thing.
 2. The column **Access by members** shows which of the members have actually used each service.
 
-An example: a group with the AWS managed policy `AmazonEC2FullAccess`. If you open the policy, you see that it does not only apply to EC2. It also gives permissions in related services, such as Auto Scaling, load balancers and metrics in CloudWatch, and even a small part of IAM: the right to create service-linked roles. So IAM is also in the list. If only EC2 is used, a narrower policy of your own may be enough.
+An example: a group with the AWS managed policy `AmazonEC2FullAccess`. If you open the policy, you see that it does not only apply to EC2. It also gives permissions in related services, such as Auto Scaling, load balancers and metrics in CloudWatch, and even a small part of IAM: the right to create [service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create-service-linked-role.html). So IAM is also in the list. If only EC2 is used, a narrower policy of your own may be enough.
 
 ## Check the result
 

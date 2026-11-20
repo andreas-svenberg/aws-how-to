@@ -7,7 +7,7 @@ A scheduled action changes the size of an Auto Scaling group (min, max and desir
 ## Why and when to use it
 
 - A group with min 2 runs two servers around the clock, also at three in the morning when nobody visits the site.
-- Target tracking scales in when CPU is low, but never below min. With min 2 there are always at least two servers, however low the load is. The policy cannot save anything at night.
+- [Target tracking](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html) scales in when CPU is low, but never below min. With min 2 there are always at least two servers, however low the load is. The policy cannot save anything at night.
 - A scheduled action changes min, max and desired at a given time: lower in the evening, higher again in the morning.
 - Every server that does not run saves instance hours, and with that money.
 
@@ -120,7 +120,7 @@ If it is not, set it back to the normal size you noted in step 1:
 aws autoscaling update-auto-scaling-group --auto-scaling-group-name "${PREFIX}-web-asg" --min-size 2 --max-size 4 --desired-capacity 2
 ```
 
-If the group was created by a CloudFormation stack, the actions you created here are outside the stack. The stack does not know about them, so remove them when you are done.
+If the group was created by a [CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) stack, the actions you created here are outside the stack. The stack does not know about them, so remove them when you are done.
 
 ## Cost against availability
 

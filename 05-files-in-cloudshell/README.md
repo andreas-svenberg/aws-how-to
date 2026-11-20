@@ -126,7 +126,7 @@ rm instances.txt
 | The file is not found when downloading | Wrong path. Check with `ls` and `pwd` where the file is, and remember that relative paths count from the home folder. |
 | The file is gone next time | It was outside the home folder, for example in `/tmp`. Only `/home/cloudshell-user` is kept. |
 | None of your files show | You have probably changed region. Every region has its own home folder, so change back at the top right. |
-| Large files are slow | Upload and download are slow for large files. Use an S3 bucket and `aws s3 cp` instead. |
+| Large files are slow | Upload and download are slow for large files. Use an S3 bucket and [`aws s3 cp`](https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html) instead. |
 
 ## Files
 

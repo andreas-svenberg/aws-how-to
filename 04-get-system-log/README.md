@@ -50,7 +50,7 @@ aws ec2 get-console-output --instance-id <instance-id> --output text
 
 You can pass it on to `grep` to look for words such as `error` or `failed`.
 
-The latest output is often more interesting than the one saved at the start, for example after a reboot. The flag `--latest` fetches it. It works on instances built on AWS Nitro, which includes the newer types such as t3.micro.
+The latest output is often more interesting than the one saved at the start, for example after a reboot. The flag `--latest` fetches it. It works on instances built on [AWS Nitro](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html), which includes the newer types such as t3.micro.
 
 ```
 aws ec2 get-console-output --instance-id <instance-id> --latest --output text
@@ -102,9 +102,9 @@ Terminate the test instances from step 4 when you are done: EC2, Instances, sele
 - **An empty log** means the server has just started. AWS saves the output a while after start, so wait a few minutes and try again.
 - **The log mainly shows the startup.** What happens much later, when the server is already running, usually does not show there.
 - **The full output from user data** is always in `/var/log/cloud-init-output.log` on the server. The system log saves the day when you cannot get in, but if you can get in, the file on the server is more complete.
-- **The screenshot cannot be typed in.** To type commands, you need SSH, EC2 Instance Connect or the serial console, which is a different feature with its own requirements.
+- **The screenshot cannot be typed in.** To type commands, you need SSH, EC2 Instance Connect or the [EC2 serial console](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-serial-console.html), which is a different feature with its own requirements.
 - **With several instances,** check that the right one is selected before you fetch the log. The name and the id are at the top of the window.
-- **A line about SSM Agent:** `SSM Agent unable to acquire credentials`, *Systems Manager's instance management role is not configured*. It is harmless. It only means that the server has no role for Systems Manager. It shows on all servers without a role and is not the error you are looking for.
+- **A line about SSM Agent:** `SSM Agent unable to acquire credentials`, *Systems Manager's instance management role is not configured*. It is harmless. It only means that the server has no role for [AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html). It shows on all servers without a role and is not the error you are looking for.
 
 ## Common errors
 
