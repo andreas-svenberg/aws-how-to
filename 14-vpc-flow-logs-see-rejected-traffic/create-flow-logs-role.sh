@@ -8,7 +8,7 @@
 # The flow log itself is created in the console.
 
 if [ -z "$PREFIX" ]; then
-  echo "Set PREFIX first, for example PREFIX=demo"
+  echo "Set PREFIX first, for example export PREFIX=demo"
   exit 1
 fi
 

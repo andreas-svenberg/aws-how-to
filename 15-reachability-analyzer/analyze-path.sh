@@ -7,7 +7,7 @@
 # to test the database port). Each analysis is billed.
 
 if [ -z "$PREFIX" ]; then
-  echo "Set PREFIX first, for example PREFIX=demo"
+  echo "Set PREFIX first, for example export PREFIX=demo"
   exit 1
 fi
 

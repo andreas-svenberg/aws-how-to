@@ -37,10 +37,10 @@ Security groups and network ACLs stop traffic silently, and all you notice is th
 
 ### 0. Set your prefix
 
-Set the same prefix as in your resource names, in the terminal you use for the steps below. Do it again if you open a new terminal. See also [Before you start](../README.md#before-you-start) in the root README.
+Set the same prefix as in your resource names, in the terminal you use for the steps below. `export` makes the prefix visible also to scripts you run with `bash`, not only to commands you type in the terminal. Do it again if you open a new terminal. See also [Before you start](../README.md#before-you-start) in the root README.
 
 ```
-PREFIX=demo
+export PREFIX=demo
 ```
 
 ### 1. Create the role and the log group

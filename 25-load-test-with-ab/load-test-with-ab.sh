@@ -6,7 +6,7 @@
 # Keep the test small and short, and only test your own environment.
 
 if [ -z "$PREFIX" ]; then
-  echo "Set PREFIX first, for example PREFIX=demo"
+  echo "Set PREFIX first, for example export PREFIX=demo"
   exit 1
 fi
 

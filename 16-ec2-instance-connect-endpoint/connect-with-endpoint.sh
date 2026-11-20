@@ -4,13 +4,13 @@
 # without a bastion and without a public IP.
 # Run section by section in a terminal (copy and paste), not as one script:
 # the endpoint itself is created in the console between section 2 and 3.
-# Requires AWS CLI v2. Set PREFIX before you paste, for example PREFIX=demo
+# Requires AWS CLI v2. Set PREFIX before you paste, for example export PREFIX=demo
 
 # Git Bash would otherwise turn the /aws/service/... SSM path into a Windows path.
 export MSYS_NO_PATHCONV=1
 
 # Warns without closing the terminal (this file is pasted, not run)
-[ -z "$PREFIX" ] && echo "WARNING: PREFIX is not set. Set it, for example PREFIX=demo, and paste again."
+[ -z "$PREFIX" ] && echo "WARNING: PREFIX is not set. Set it, for example export PREFIX=demo, and paste again."
 
 # --- Settings (change them if your resources have other Name tags) ----
 VPC_NAME=${PREFIX}-vpc

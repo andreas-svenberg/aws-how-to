@@ -7,7 +7,7 @@
 # Run in a terminal on your own computer, or in CloudShell.
 
 if [ -z "$PREFIX" ]; then
-  echo "Set PREFIX first, for example PREFIX=demo"
+  echo "Set PREFIX first, for example export PREFIX=demo"
   exit 1
 fi
 

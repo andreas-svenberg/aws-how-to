@@ -32,10 +32,10 @@ Use it to test how the site is experienced. To be sure of seeing [target trackin
 
 ### 0. Set your prefix
 
-Set the same prefix as in your resource names, in the CloudShell session you use for the steps below. Do it again if CloudShell has closed the session. See also [Before you start](../README.md#before-you-start) in the root README.
+Set the same prefix as in your resource names, in the CloudShell session you use for the steps below. `export` makes the prefix visible also to scripts you run with `bash`, not only to commands you type. Do it again if CloudShell has closed the session. See also [Before you start](../README.md#before-you-start) in the root README.
 
 ```
-PREFIX=demo
+export PREFIX=demo
 ```
 
 ### 1. Install ab

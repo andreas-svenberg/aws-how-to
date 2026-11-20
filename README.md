@@ -8,7 +8,8 @@ up afterwards.
 ## Before you start
 
 - Resource names are written with a prefix of your own choice, for example
-  `<prefix>-web`. Set it once in the terminal: `PREFIX=demo`
+  `<prefix>-web`. Set it once in the terminal: `export PREFIX=demo`.
+  `export` is needed so that scripts you run with `bash` also see the prefix.
 - Set your region once in the terminal: `REGION=eu-north-1`, and use the
   same region in the console.
 - Placeholders are written in angle brackets, for example `<public-ip>`.

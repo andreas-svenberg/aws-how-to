@@ -12,7 +12,7 @@ PAGE_PATH="shared/which-server.php"
 ALB_DNS="$1"
 if [ -z "$ALB_DNS" ]; then
   if [ -z "$PREFIX" ]; then
-    echo "Set PREFIX (for example PREFIX=demo) or give the DNS name as an argument."
+    echo "Set PREFIX (for example export PREFIX=demo) or give the DNS name as an argument."
     exit 1
   fi
   ALB_DNS=$(aws elbv2 describe-load-balancers \
