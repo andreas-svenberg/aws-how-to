@@ -1,0 +1,25 @@
+# ssh-config-tunnel.txt
+# Excerpt to ADD to ~/.ssh/config (keep your existing blocks).
+# Prerequisite: a bastion host and a working
+# "Host <prefix>-bastion" block in the same file.
+#
+# Replace <private-ip> with the private IPv4 address of the web server
+# (EC2 console, or the HostName line in its block in ~/.ssh/config).
+# Replace <bastion-public-ip> with the bastion's public IPv4 address
+# and <key> with the name of your key file.
+#
+# Start the tunnel:           ssh -N <prefix>-web-tunnel
+# Then open in the browser:   http://localhost:8080
+# Stop the tunnel:            Ctrl+C
+#
+# The same thing without this block:
+#   ssh -N -L 8080:<private-ip>:80 <prefix>-bastion
+
+Host <prefix>-web-tunnel
+    # Log in to the bastion (same host as <prefix>-bastion) ...
+    HostName <bastion-public-ip>
+    User ec2-user
+    IdentityFile ~/.ssh/<key>.pem
+    # ... and forward local port 8080 to port 80 on the web server.
+    # The address is resolved from the bastion, so the private IP works.
+    LocalForward 8080 <private-ip>:80
