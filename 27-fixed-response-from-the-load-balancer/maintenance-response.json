@@ -1,0 +1,10 @@
+[
+  {
+    "Type": "fixed-response",
+    "FixedResponseConfig": {
+      "MessageBody": "<h1>Maintenance</h1><p>Maintenance in progress, please come back later.</p>",
+      "StatusCode": "503",
+      "ContentType": "text/html"
+    }
+  }
+]
