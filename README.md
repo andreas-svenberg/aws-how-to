@@ -36,11 +36,11 @@ up afterwards.
 | 15 | [Reachability Analyzer](15-reachability-analyzer/) | Let AWS analyse the path to an instance through security groups, network ACLs and route tables, and point out what blocks it. |
 | 16 | [EC2 Instance Connect Endpoint](16-ec2-instance-connect-endpoint/) | Connect with SSH to an instance in a private subnet without a bastion host and without a public IP. |
 | 17 | [Database in a graphical client](17-database-in-a-graphical-client/) | Open a private database in a graphical tool on your computer through an SSH tunnel. |
-| 18 | Share a file with a presigned URL | Share a single file from a private bucket with a link that stops working after a time you choose. |
-| 19 | Copy uploads to S3 with sync | Copy uploaded files from a web server to S3 with `aws s3 sync`, where later runs only copy what is new or changed. |
-| 20 | Static website on S3 | Let S3 serve a website made of ready-made files, without any server, and see why this is the only bucket that should be public. |
-| 21 | cfn-lint in VS Code | Find errors in a CloudFormation template before deploying it, in VS Code and in the terminal, and compare with `validate-template`. |
-| 22 | Stack termination protection | Protect a CloudFormation stack from being deleted by mistake, and compare with DeletionPolicy in the template. |
+| 18 | [Share a file with a presigned URL](18-share-a-file-with-a-presigned-url/) | Share a single file from a private bucket with a link that stops working after a time you choose. |
+| 19 | [Copy uploads to S3 with sync](19-copy-uploads-to-s3-with-sync/) | Copy uploaded files from a web server to S3 with `aws s3 sync`, where later runs only copy what is new or changed. |
+| 20 | [Static website on S3](20-static-website-on-s3/) | Let S3 serve a website made of ready-made files, without any server, and see why this is the only bucket that should be public. |
+| 21 | [cfn-lint in VS Code](21-cfn-lint-in-vs-code/) | Find errors in a CloudFormation template before deploying it, in VS Code and in the terminal, and compare with `validate-template`. |
+| 22 | [Stack termination protection](22-stack-termination-protection/) | Protect a CloudFormation stack from being deleted by mistake, and compare with DeletionPolicy in the template. |
 | 23 | [Which server answers?](23-which-server-answers/) | A small PHP page on shared storage shows which instance and zone behind a load balancer answered the request. |
 | 24 | [Fewer servers at night](24-fewer-servers-at-night/) | Use scheduled actions to scale an Auto Scaling group down in the evening and up again on weekday mornings. |
 | 25 | [Load test with ab](25-load-test-with-ab/) | Send HTTP requests through a load balancer with ApacheBench in CloudShell, and read response times and errors. |
