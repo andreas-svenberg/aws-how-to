@@ -32,7 +32,7 @@ See [Control access to Lambda function URLs](https://docs.aws.amazon.com/lambda/
 
 ## Prerequisites
 
-- A Lambda function, named for example `<prefix>-site-check`, such as the site check in guide 31. Any function works. If it runs on a schedule, the schedule is not affected by this guide.
+- A Lambda function, named for example `<prefix>-site-check`, such as the site check in [guide 31](../31-site-check-with-lambda/). Any function works. If it runs on a schedule, the schedule is not affected by this guide.
 - The AWS CLI on your computer, signed in, or CloudShell. See [Installing or updating to the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 - `PREFIX` set in that terminal, see step 0 below and [Before you start](../README.md#before-you-start) in the root README.
 

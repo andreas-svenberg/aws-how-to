@@ -30,7 +30,7 @@ See [PutCompositeAlarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIR
 
 - An SNS topic named for example `<prefix>-alarms`, with a confirmed e-mail subscription.
 - Metric alarms that the composite alarm can combine. This guide uses three:
-  - `<prefix>-site-check`: the site does not answer, see guide 31.
+  - `<prefix>-site-check`: the site does not answer, see [guide 31](../31-site-check-with-lambda/).
   - `<prefix>-cpu-high`: high CPU in an Auto Scaling group, for example average over 70 percent for 5 minutes.
   - `<prefix>-unhealthy`: at least one target that the load balancer does not count as healthy.
 
@@ -76,7 +76,7 @@ bash create-composite-alarm.sh
 
 ### 3. Test with set-alarm-state
 
-Test the rule without putting load on the server or stopping the site, by setting the alarms by hand with `set-alarm-state`, as in guide 28. The commands are in [test-composite-alarm.sh](test-composite-alarm.sh):
+Test the rule without putting load on the server or stopping the site, by setting the alarms by hand with `set-alarm-state`, as in [guide 28](../28-alarm-as-sms-via-sns/). The commands are in [test-composite-alarm.sh](test-composite-alarm.sh):
 
 ```
 bash test-composite-alarm.sh
