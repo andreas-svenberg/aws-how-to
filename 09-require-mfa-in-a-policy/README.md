@@ -91,7 +91,7 @@ The guide creates the policy `<prefix>-require-mfa` and attaches it to the group
 - **Always test as the user the policy applies to,** in a private window. If you look as administrator, everything seems to work, since the administrator is not in the group.
 - **The exceptions in `NotAction` are necessary.** If you remove them, the user cannot create an MFA device, and then nobody gets in. Use the policy as it is in the documentation.
 - **Do not attach the policy to your own administrator user** without first testing it on a test user. A mistake in a `Deny` statement can lock you out, and then only the root user can fix it.
-- **Where in the console you look decides how much the error says.** The IAM pages show *explicit deny* and the policy's ARN, so there you see directly which policy denies. S3 only says that listing is not allowed. *Explicit deny* means a `Deny` statement stops it, *no identity-based policy allows* means the permission is missing. The IAM policy simulator can also show which statement denies.
+- **Where in the console you look decides how much the error says.** The IAM pages show *explicit deny* and the policy's ARN, so there you see directly which policy denies. S3 only says that listing is not allowed. *Explicit deny* means a `Deny` statement stops it, *no identity-based policy allows* means the permission is missing. The [IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) can also show which statement denies.
 
 ## Common errors
 

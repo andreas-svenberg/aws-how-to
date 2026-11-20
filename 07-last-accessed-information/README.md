@@ -84,7 +84,7 @@ An example: a group with the AWS managed policy `AmazonEC2FullAccess`. If you op
 - **Never used:** a candidate to remove. Ask yourself whether the user or the role really should be able to do it.
 - **Be careful with new users and roles.** If one was created recently, it is natural that much has not been used yet.
 - **Look at a longer period** before you remove anything, preferably a couple of months, and ask whoever uses the account. Something that runs once a quarter does not show in a week.
-- **Test a narrower policy** with the IAM policy simulator before you replace the old one. Then you see directly whether something necessary disappears.
+- **Test a narrower policy** with the [IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) before you replace the old one. Then you see directly whether something necessary disappears.
 
 ## Clean up
 

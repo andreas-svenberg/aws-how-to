@@ -7,7 +7,7 @@ With a profile in the AWS CLI, you can have several identities signed in in the 
 ## Why and when to use it
 
 - Your terminal is signed in as your administrator user. It may do everything, so everything works.
-- But how do you test that a test user may only read in S3, as its policy says? The IAM policy simulator is one way. Actually running the commands as the test user is another.
+- But how do you test that a test user may only read in S3, as its policy says? The [IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html) is one way. Actually running the commands as the test user is another.
 - With profiles, you can be signed in as both the administrator and the test user at the same time. Each sign-in is saved in a profile of its own, and you choose the profile with the flag `--profile`.
 - You do not need to sign out and in again back and forth, and the risk of forgetting who you are signed in as is smaller.
 - The same technique is used when you have several AWS accounts, for example one for test and one for production. One profile per account.
