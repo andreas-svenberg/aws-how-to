@@ -10,7 +10,7 @@ With a bastion host you can log in to a web server through a jump, but SSH can a
 - **Some services you want to reach from your own computer with a program of your own,** for example a web browser or a database tool. A private address in the VPC cannot be reached directly from the internet.
 - **An SSH tunnel solves it.** You tell ssh to listen on a port on your own computer and send everything that arrives there through the encrypted connection to the bastion, and on from there.
 - **Nothing new needs to be opened.** The bastion already lets in SSH from your address, and nothing more is needed. No new rule in the security groups or in the network ACL.
-- **The same technique works for a database in a private subnet,** see guide 17.
+- **The same technique works for a database in a private subnet,** see [guide 17](../17-database-in-a-graphical-client/).
 
 ## How it works
 

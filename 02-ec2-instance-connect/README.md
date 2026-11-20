@@ -94,7 +94,7 @@ The rule with the prefix list is what makes the browser connection work. If you 
 
 ## Limitations
 
-- **It requires a public IP address.** Servers in private subnets without a public address cannot be reached this way. For those there is EC2 Instance Connect Endpoint, see guide 16.
+- **It requires a public IP address.** Servers in private subnets without a public address cannot be reached this way. For those there is EC2 Instance Connect Endpoint, see [guide 16](../16-ec2-instance-connect-endpoint/).
 - **Minimal Amazon Linux AMIs** do not have the software from the start.
 - **To copy files with `scp`, or open the server in an editor,** you still need the key file and ordinary SSH. Instance Connect in the browser is a terminal window, nothing more.
 - **The prefix list is different in each region.** The name must end with the region the instance is in. A list from another region does not let the service in.

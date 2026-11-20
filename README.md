@@ -33,9 +33,9 @@ up afterwards.
 | 12 | [New IP for SSH](12-new-ip-for-ssh/) | Find the two rules (security group and network ACL) that still point at your old IP address when SSH stops working, and update them. |
 | 13 | [SSH tunnel through a bastion](13-ssh-tunnel-through-a-bastion/) | Forward a local port through a bastion host to a service that is not open to the internet, and save the tunnel in the SSH config. |
 | 14 | [VPC Flow Logs, see rejected traffic](14-vpc-flow-logs-see-rejected-traffic/) | Log rejected traffic in a VPC and search it with CloudWatch Logs Insights, to see what was stopped, from where and on which port. |
-| 15 | Reachability Analyzer | Let AWS analyse the path to an instance through security groups, network ACLs and route tables, and point out what blocks it. |
-| 16 | EC2 Instance Connect Endpoint | Connect with SSH to an instance in a private subnet without a bastion host and without a public IP. |
-| 17 | Database in a graphical client | Open a private database in a graphical tool on your computer through an SSH tunnel. |
+| 15 | [Reachability Analyzer](15-reachability-analyzer/) | Let AWS analyse the path to an instance through security groups, network ACLs and route tables, and point out what blocks it. |
+| 16 | [EC2 Instance Connect Endpoint](16-ec2-instance-connect-endpoint/) | Connect with SSH to an instance in a private subnet without a bastion host and without a public IP. |
+| 17 | [Database in a graphical client](17-database-in-a-graphical-client/) | Open a private database in a graphical tool on your computer through an SSH tunnel. |
 | 18 | Share a file with a presigned URL | Share a single file from a private bucket with a link that stops working after a time you choose. |
 | 19 | Copy uploads to S3 with sync | Copy uploaded files from a web server to S3 with `aws s3 sync`, where later runs only copy what is new or changed. |
 | 20 | Static website on S3 | Let S3 serve a website made of ready-made files, without any server, and see why this is the only bucket that should be public. |

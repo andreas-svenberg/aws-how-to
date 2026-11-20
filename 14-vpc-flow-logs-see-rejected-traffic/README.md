@@ -95,7 +95,7 @@ export PREFIX=demo
 - **You will also see rows from addresses you do not recognise,** against ports that were never opened. That is the internet knocking, and it goes on all the time against all public addresses. Your rules stop it, and now you see that they do.
 - **`srcAddr`** is the source address, who tried. **`dstAddr`** is the destination, and inside the VPC it is the server's private address, not the public one. **`dstPort`** is the port they tried to reach.
 - **In the default format there are fourteen fields** in this order: version, account id, network interface id, source address, destination address, source port, destination port, protocol, packets, bytes, start, end, action and log status. Action is field number thirteen and is either `ACCEPT` or `REJECT`.
-- **`REJECT` means that a security group or a network ACL stopped the packet.** The log does not say which of them. For that, look at the rules, or use Reachability Analyzer, see guide 15.
+- **`REJECT` means that a security group or a network ACL stopped the packet.** The log does not say which of them. For that, look at the rules, or use Reachability Analyzer, see [guide 15](../15-reachability-analyzer/).
 
 ## Clean up
 
