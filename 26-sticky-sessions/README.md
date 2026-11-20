@@ -33,7 +33,7 @@ If your load balancer or target group has another name, use that name instead, a
 | Placeholder | What it is | Example |
 |---|---|---|
 | `<alb-dns>` | The load balancer's DNS name (EC2, Load Balancers, the load balancer) | `demo-alb-1234567890.eu-north-1.elb.amazonaws.com` |
-| `<url-path>` | The path to the shared folder in the browser, as in guide 23 | `shared` |
+| `<url-path>` | The path to the shared folder in the browser, as in [guide 23](../23-which-server-answers/) | `shared` |
 
 ## Step by step
 
@@ -133,7 +133,7 @@ The goal of a load-balanced architecture is stateless servers. Everything that s
 | The answer still switches with `curl` although stickiness is on | `curl` forgets the cookie. Use `-c` and `-b`, or a browser. |
 | The answer still switches in the browser | Stickiness is not saved, or the minute has passed. Check the target group's attributes. |
 | *Target group ... not found* | The target group is not called `<prefix>-web-tg`. Change `TG_NAME` at the top of `set-stickiness.sh`. |
-| `404` from `which-server.php` | The page is not on the shared storage, or `PAGE_PATH` is wrong. See guide 23. |
+| `404` from `which-server.php` | The page is not on the shared storage, or `PAGE_PATH` is wrong. See [guide 23](../23-which-server-answers/). |
 
 ## Files
 

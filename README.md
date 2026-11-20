@@ -44,8 +44,8 @@ up afterwards.
 | 23 | [Which server answers?](23-which-server-answers/) | A small PHP page on shared storage shows which instance and zone behind a load balancer answered the request. |
 | 24 | [Fewer servers at night](24-fewer-servers-at-night/) | Use scheduled actions to scale an Auto Scaling group down in the evening and up again on weekday mornings. |
 | 25 | [Load test with ab](25-load-test-with-ab/) | Send HTTP requests through a load balancer with ApacheBench in CloudShell, and read response times and errors. |
-| 26 | Sticky sessions | Keep a visitor on the same server with load balancer stickiness, and see why stateless servers are the better solution. |
-| 27 | Fixed response from the load balancer | Add a listener rule that lets the load balancer answer itself, for example with a maintenance page, without asking any server. |
+| 26 | [Sticky sessions](26-sticky-sessions/) | Keep a visitor on the same server with load balancer stickiness, and see why stateless servers are the better solution. |
+| 27 | [Fixed response from the load balancer](27-fixed-response-from-the-load-balancer/) | Add a listener rule that lets the load balancer answer itself, for example with a maintenance page, without asking any server. |
 | 28 | Alarm as SMS via SNS | Add an SMS subscription to an SNS topic so that urgent alarms reach a phone, not only an inbox. |
 | 29 | Run a Lambda from the browser | Give a Lambda function its own web address with a function URL, call it from the browser and the terminal, and understand the risk of an open address. |
 | 30 | Composite alarm | Combine other alarms into one that only alerts when a rule is met, for example when two things are wrong at the same time. |
