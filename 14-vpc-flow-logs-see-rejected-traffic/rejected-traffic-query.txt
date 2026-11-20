@@ -1,0 +1,20 @@
+# rejected-traffic-query.txt
+# Logs Insights query for the flow log in /<prefix>/vpc/flowlogs.
+# CloudWatch, Logs, Log Analytics: select the log group, paste the query, run.
+# Shows the 20 latest rejected connections. Field names are expected to be
+# discovered automatically for flow logs in the default format.
+
+fields @timestamp, srcAddr, dstAddr, dstPort, action
+| filter action = 'REJECT'
+| sort @timestamp desc
+| limit 20
+
+# Fallback if the field names above come back empty: parse the raw line.
+# Default format: version account-id interface-id srcaddr dstaddr srcport
+# dstport protocol packets bytes start end action log-status
+#
+# fields @timestamp, @message
+# | parse @message "* * * * * * * * * * * * * *" as v, acct, eni, src, dst, sport, dport, proto, pkts, nbytes, tstart, tend, act, logstatus
+# | filter act = 'REJECT'
+# | sort @timestamp desc
+# | limit 20
