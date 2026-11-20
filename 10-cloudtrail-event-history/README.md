@@ -75,7 +75,7 @@ What an event contains:
 | Field | What it means |
 |---|---|
 | Event time | When it happened. The console and the AWS CLI show local time. In Event record, the JSON, `eventTime` is in UTC. |
-| User name | Who did it: a user or a role. If a call came from a server with a role, the role's session is shown there, with the instance id as its name (see guide 06). |
+| User name | Who did it: a user or a role. If a call came from a server with a role, the role's session is shown there, with the instance id as its name (see [guide 06](../06-temporary-credentials-from-a-role/)). |
 | Event source and Event name | The service, for example `ec2.amazonaws.com` or `iam.amazonaws.com`, and the action itself. |
 | `sourceIPAddress` | In Event record: the address the call came from. If you do not recognise it, it is worth looking into. |
 | `errorCode` | In Event record: the call was denied or failed, for example `AccessDenied`. Failed calls are also logged. A `CreateUser` for a user that already exists, for example, is logged with `errorCode` `EntityAlreadyExistsException`. It is a good way to see whether someone has tried to do something they may not. |

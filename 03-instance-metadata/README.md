@@ -29,7 +29,7 @@ The instance metadata service lets a server ask AWS about itself: which id it ha
 
 ## Prerequisites
 
-- An EC2 instance running Amazon Linux 2023 that you can log in to with SSH, or with EC2 Instance Connect (guide 02). See [Get started with Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html).
+- An EC2 instance running Amazon Linux 2023 that you can log in to with SSH, or with EC2 Instance Connect ([guide 02](../02-ec2-instance-connect/)). See [Get started with Amazon EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html).
 - For the page in step 4: Apache installed and running, and HTTP (port 80) open in the security group. See [Tutorial: Install a LAMP server on AL2023](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html).
 
 | Placeholder | What it is | Example |
@@ -105,7 +105,7 @@ curl -s -H "$H" $M/
 
 [metadata-page.sh](metadata-page.sh) fetches a token, asks for the instance id and the zone, and writes a new `index.html` with the two values in the text. **Note:** it overwrites `/var/www/html/index.html`. Any page already there is replaced.
 
-1. Get the script to the server. Put it in a public repository and fetch it with `curl`, as in guide 01, or create the file with `nano` and paste the content.
+1. Get the script to the server. Put it in a public repository and fetch it with `curl`, as in [guide 01](../01-fetch-a-web-page-from-github/), or create the file with `nano` and paste the content.
 2. Run it. `sudo` is needed since the script writes in Apache's folder.
 
    ```

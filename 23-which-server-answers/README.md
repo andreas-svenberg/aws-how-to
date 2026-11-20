@@ -14,7 +14,7 @@ A small PHP page that shows the instance id and availability zone of the server 
 
 - The page is placed on storage that all servers mount (for example EFS). A file put there on one server exists on every server at once, also on new servers that the group starts later.
 - The file is PHP, and it is run by the server that receives the request. The code is the same everywhere, but it runs on different machines.
-- The code asks the instance metadata service (IMDSv2, see guide 03) for the server's own instance id and zone: first a PUT to `api/token`, then two GET requests with the token in a header.
+- The code asks the instance metadata service (IMDSv2, see [guide 03](../03-instance-metadata/)) for the server's own instance id and zone: first a PUT to `api/token`, then two GET requests with the token in a header.
 
 ## Prerequisites
 

@@ -78,7 +78,7 @@ The columns that matter. The values are written in lower case, `true` and `false
 **What to look for:**
 
 - The root user (`<root_account>`) and administrator users should have `mfa_active` `true`. If it says `false`, something has gone wrong and should be fixed directly.
-- Users that sign in to the console should have MFA. A policy can require it, see guide 09.
+- Users that sign in to the console should have MFA. A policy can require it, see [guide 09](../09-require-mfa-in-a-policy/).
 - Nobody should have access keys that are never used.
 - The fixes are simple: turn on MFA for users that sign in to the console, and deactivate or remove keys that are not used. Then produce the report again when four hours have passed, and compare. Two reports, before and after, are good evidence in documentation.
 

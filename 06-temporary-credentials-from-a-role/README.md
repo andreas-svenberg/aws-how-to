@@ -10,7 +10,7 @@ A server with an IAM role can run AWS CLI commands without anyone having typed i
 - **With a role, nobody needs to type in any keys.** No file with keys is on the server, and nobody needs to remember to change them.
 - **The keys from a role are temporary.** They have an expiry time, and AWS replaces them well before they stop working.
 - **A key that leaks,** for example in a log or a screenshot, stops working by itself after a while. An ordinary access key keeps working until someone removes it.
-- **The keys come from the same metadata service** that gives the instance id and the zone (guide 03). Same address and same token, just another path.
+- **The keys come from the same metadata service** that gives the instance id and the zone ([guide 03](../03-instance-metadata/)). Same address and same token, just another path.
 
 ## How it works
 
