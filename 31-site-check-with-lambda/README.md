@@ -39,9 +39,9 @@ See [What is AWS Lambda?](https://docs.aws.amazon.com/lambda/latest/dg/welcome.h
 
 ### 1. Create the function
 
-1. Open Lambda in the console, check the region, and choose **Create function** and **Author from scratch**. The other choices start from ready-made examples, but you have your own code.
+1. Open Lambda in the console, check the region at the top right, and click the button **Create an Event Function**, not the arrow next to it. **Author from scratch** is selected, since you have your own code.
 2. Name it `<prefix>-site-check` and choose **Python 3.12** as **Runtime**, the language the code is written in. The architecture can stay as it is: for such a small function, the choice does not matter.
-3. Under **Permissions**, let Lambda create a new role with basic Lambda permissions. It may write to CloudWatch Logs, nothing more. Click **Create function**.
+3. Leave **Permissions** as they are: Lambda creates a new role that may write to CloudWatch Logs, nothing more. Click **Create Event Function**.
 4. Under the tab **Code**, replace the example code in `lambda_function.py` with the content of [site-check.py](site-check.py), and click **Deploy**. Changes do not run until they are deployed.
 5. The default time for a run is 3 seconds. The function waits up to 10 seconds for the site, so set the timeout to 20 seconds under **Configuration** and **General configuration**.
 6. Under **Configuration** and **Environment variables**, add `SITE_URL` with `<site-url>`, and `SITE_NAME` with `<site-name>`. The code reads them: nothing is hard-coded. The page in `SITE_URL` must answer with status `200`, since the code counts every other answer as unavailable. If the site is WordPress and you want to check the login page, use `http://<alb-dns>/wp-login.php`.
@@ -64,7 +64,7 @@ See [What is AWS Lambda?](https://docs.aws.amazon.com/lambda/latest/dg/welcome.h
 
 ### 4. The alarm
 
-After the first runs, the namespace `SiteCheck` is under **All metrics** in CloudWatch, with `Available` and `ResponseTimeMs` per `Site`. It can take up to 15 minutes before a new metric appears in the list.
+After the first runs, the namespace `SiteCheck` is under **Classic metrics** in CloudWatch, with `Available` and `ResponseTimeMs` per `Site`. It can take up to 15 minutes before a new metric appears in the list.
 
 1. Create an alarm on `Available` with the statistic **Minimum** and the period **5 minutes**.
 2. Set the condition to lower than `1`, with **2 out of 2** data points.
