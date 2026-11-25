@@ -46,10 +46,11 @@ up afterwards.
 | 25 | [Load test with ab](25-load-test-with-ab/) | Send HTTP requests through a load balancer with ApacheBench in CloudShell, and read response times and errors. |
 | 26 | [Sticky sessions](26-sticky-sessions/) | Keep a visitor on the same server with load balancer stickiness, and see why stateless servers are the better solution. |
 | 27 | [Fixed response from the load balancer](27-fixed-response-from-the-load-balancer/) | Add a listener rule that lets the load balancer answer itself, for example with a maintenance page, without asking any server. |
-| 28 | [Alarm as SMS via SNS](28-alarm-as-sms-via-sns/) | Add an SMS subscription to an SNS topic so that urgent alarms reach a phone, not only an inbox. |
+| 28 | [Alarm as SMS via SNS](28-alarm-as-sms-via-sns/) | Add an SMS subscription to an SNS topic so that urgent alarms reach a phone, not only an inbox. Requires the Paid plan. |
 | 29 | [Run a Lambda from the browser](29-run-a-lambda-from-the-browser/) | Give a Lambda function its own web address with a function URL, call it from the browser and the terminal, and understand the risk of an open address. |
 | 30 | [Composite alarm](30-composite-alarm/) | Combine other alarms into one that only alerts when a rule is met, for example when two things are wrong at the same time. |
 | 31 | [Site check with Lambda](31-site-check-with-lambda/) | Check a website from the outside every five minutes with a small Lambda function, send availability and response time to CloudWatch, and get an alarm when it stops answering. |
+| 32 | [Alarm to a Discord channel](32-alarm-to-a-discord-channel/) | Send CloudWatch alarms from an SNS topic to a Discord channel with a small Lambda function and the channel's webhook, and see how the same works for Slack, Google Chat and Teams. |
 
 ## License
 

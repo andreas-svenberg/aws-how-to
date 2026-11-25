@@ -4,6 +4,8 @@
 
 An SNS topic that sends e-mail when a CloudWatch alarm goes off is a good start. But e-mail is read when you have time, and an alarm that the site is down needs to reach someone directly. Then SMS is a better choice. You verify a phone number in the SNS sandbox for SMS, add an SMS subscription to the alarm topic and test by forcing an alarm to `ALARM`. You need your mobile phone.
 
+**SMS requires an AWS account with the Paid plan.** When this was tested on an account with the Free plan, SNS could not send SMS at all. With the Free plan, see [guide 32](../32-alarm-to-a-discord-channel/) for alarms in a chat channel instead.
+
 ## Why and when to use it
 
 - **An alarm that nobody sees is worth as much as no alarm at all.**
@@ -19,12 +21,13 @@ An SNS topic that sends e-mail when a CloudWatch alarm goes off is a good start.
 - **The verification applies per region.** A number verified in another region does not exist in the region of your topic. Always check the region at the top right before you start.
 - **The account has a limit for how much SMS may cost per month,** and it is low by default. When the limit is reached, SNS stops sending SMS, which protects against an expensive surprise. See [Setting SMS messaging preferences in Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/sms_preferences.html).
 - **To get out of the sandbox** and send to any number, you open a case with AWS Support and describe how you will use SMS. That is not needed for this guide.
-- **Behind the scenes, SNS sends its SMS through AWS End User Messaging SMS.** You may come across that name in the console or the documentation, but everything in this guide is done from SNS.
+- **Behind the scenes, SNS sends its SMS through AWS End User Messaging SMS.** You may come across that name in the console or the documentation, but everything in this guide is done from SNS. When this was tested, an account with the Free plan had no access to AWS End User Messaging SMS, and that is why SMS requires the Paid plan.
 
 See [Using the Amazon SNS SMS sandbox](https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html).
 
 ## Prerequisites
 
+- An AWS account with the Paid plan. On the Free plan, SMS cannot be used.
 - An SNS topic named for example `<prefix>-alarms`, with a confirmed e-mail subscription, and a CloudWatch alarm named for example `<prefix>-cpu-high` that sends to the topic. See [Using Amazon CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html).
 - A mobile phone that can receive SMS.
 - The AWS CLI on your computer, signed in, or CloudShell. See [Installing or updating to the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
@@ -116,6 +119,7 @@ SMS is the part of alarm notifications where every single message costs somethin
 
 | Symptom | Cause |
 |---|---|
+| Under **Text messaging (SMS)**, **Account information** says `The AWS Access Key Id needs a subscription for the service`, and the AWS CLI answers `SubscriptionRequiredException` | Seen on an account with the Free plan. SMS requires the Paid plan. See [guide 32](../32-alarm-to-a-discord-channel/) for an alternative. |
 | No code after 15 minutes | Check that the number is written correctly, without the leading zero. Then click **Resend verification code** at the number in the list. You can ask for a new code at most five times in 24 hours. |
 | The number is missing in the list | It was verified with another region selected at the top right. It only exists there. Change region and verify again. |
 | No SMS arrives when the alarm goes off | The subscription has the leading zero in the number, the number is not verified in the topic's region, or the spend limit has been reached. |
