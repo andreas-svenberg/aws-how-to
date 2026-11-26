@@ -2,7 +2,9 @@
 # test-composite-alarm.sh
 # Force both alarms to ALARM and watch the composite alarm.
 # The single alarms still send their own notifications. Both return to their
-# real state at the next evaluation, so the two set-alarm-state run quickly.
+# real state at the next evaluation, after seconds to a minute, and the
+# composite alarm follows at once. So the state is read directly, and the
+# history at the end shows the whole sequence.
 
 if [ -z "$PREFIX" ]; then
   echo "Set PREFIX first, for example export PREFIX=demo"
@@ -38,9 +40,20 @@ aws cloudwatch set-alarm-state \
   --state-value ALARM \
   --state-reason "Test composite" \
   --region "$REGION"
-sleep 10
 echo "Composite after $SITE_ALARM: $(STATE)"
 
+# The composite alarm's history. Without --alarm-types CompositeAlarm it is empty.
+aws cloudwatch describe-alarm-history \
+  --alarm-name "$COMPOSITE" \
+  --alarm-types CompositeAlarm \
+  --history-item-type StateUpdate \
+  --max-items 4 \
+  --query 'AlarmHistoryItems[].[Timestamp,HistorySummary]' \
+  --output table \
+  --region "$REGION"
+
 # --- Clean up afterwards (run by hand) -----------------------------------
-# aws cloudwatch delete-alarms \
-#   --alarm-names <prefix>-site-and-cpu <prefix>-cpu-and-unhealthy
+# One composite alarm per delete-alarms call. With two names the call fails
+# with a ValidationError and nothing is deleted.
+# aws cloudwatch delete-alarms --alarm-names <prefix>-site-and-cpu
+# aws cloudwatch delete-alarms --alarm-names <prefix>-cpu-and-unhealthy

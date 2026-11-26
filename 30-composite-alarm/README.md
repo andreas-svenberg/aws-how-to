@@ -15,6 +15,7 @@ A composite alarm does not look at metrics but at other alarms. With several ala
 
 - **The rule is built from other alarms' states.** Each part asks whether a certain alarm is in a certain state right now. There is one function per state: `ALARM`, `OK` and `INSUFFICIENT_DATA`, with the alarm's name in parentheses. The name can be in double quotes, but does not have to be.
 - **The parts are combined with `AND`, `OR` and `NOT`,** and with parentheses when the rule gets longer. `AND` means that both must be true, `OR` that at least one must be, and `NOT` turns a condition around.
+- **`AT_LEAST` is true when at least a number of alarms in a list are in a state,** for example `AT_LEAST(2, ALARM, (alarm1, alarm2, alarm3, alarm4))`. The number can also be a percentage, such as `50%`. See [Composite alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-combining.html).
 - **The rule used with the AWS CLI in this guide** is true only when both alarms are in `ALARM` at the same time:
 
   ```
@@ -54,11 +55,12 @@ export PREFIX=demo
 
 In the console, the rule is almost written by itself.
 
-1. Open CloudWatch, check the region, and choose **Alarms** and then **All alarms** in the menu on the left.
+1. Open CloudWatch, check the region, and choose **Alarms** in the menu on the left.
 2. Tick the boxes in front of `<prefix>-cpu-high` and `<prefix>-unhealthy`. The combination means high CPU and at the same time at least one server that the load balancer does not count as healthy.
-3. Click **Create composite alarm**. The console has already written a rule with the selected alarms, both within `ALARM` and joined with `OR`. Change `OR` to `AND` in the box with the rule, otherwise it goes off when either of them goes off, and then nothing is gained.
-4. Click **Next**. In **Configure actions**, choose to send a notification when the alarm goes to `ALARM`, to the existing topic `<prefix>-alarms`.
-5. Click **Next**, give the alarm the name `<prefix>-cpu-and-unhealthy` and click **Create composite alarm**. The alarm now shows in the list among the other alarms.
+3. Click **Create composite alarm**. The first step, **Specify composite alarm conditions**, opens with **Alarms** selected under **Data source**. Under **Conditions**, the console has already written a rule with the selected alarms in a text editor, on two lines, both within `ALARM` and joined with `OR`. Change `OR` at the end of line 1 to `AND`, otherwise it goes off when either of them goes off, and then nothing is gained.
+4. Click **Next**. **Configure actions** looks as for an ordinary alarm: **Alarm state trigger** is already **In alarm**, and **Select an existing SNS topic** is selected. Choose `<prefix>-alarms` in the box **Send a notification to...**. Leave **Select suppressor alarm** under **Manage alarm actions** empty.
+5. Click **Next**. Under **Add alarm details**, give the alarm the name `<prefix>-cpu-and-unhealthy`, and a description that says where to look, for example `High CPU and an unhealthy server at the same time. Check the Auto Scaling group's activity and the target group's targets.`
+6. Click **Next**. **Preview and create** shows the rule, the action and the name. Click **Create composite alarm**. The alarm shows in the list and is `OK` directly, with the condition **All of the alarms go in Alarm**.
 
 ### 2. The same thing with the AWS CLI
 
@@ -90,8 +92,10 @@ bash test-composite-alarm.sh
 
    `<prefix>-site-and-cpu` does not change, since only one half of the rule is met. But `<prefix>-cpu-high` sends its ordinary notification, since that alarm still has an action of its own.
 
-2. **Then it sets `<prefix>-site-check` to `ALARM`,** directly after. It must be quick, since both alarms go back to their real state at the next evaluation. Now both conditions are met, and the composite alarm goes to `ALARM` and sends a notification to `<prefix>-alarms`. So you get three notifications in total: one from each single alarm and one from the composite alarm.
-3. **Finally it reads the state with `describe-alarms`:**
+2. **Then it sets `<prefix>-site-check` to `ALARM`,** directly after. An alarm set with `set-alarm-state` goes back to its real state the next time CloudWatch evaluates it. When this guide was tested, the site check alarm was in `ALARM` for only 9 seconds. Now both conditions are met, and the composite alarm goes to `ALARM`, in the test at the same moment as the second alarm, and sends a notification to `<prefix>-alarms`. It went back to `OK` just as quickly.
+
+   Three `ALARM` notifications arrive directly: one from each single alarm and one from the composite alarm. If a single alarm also has an OK notification, it sends that when it goes back, in the test after 36 and 68 seconds.
+3. **It reads the state directly with `describe-alarms`,** with no pause:
 
    ```
    aws cloudwatch describe-alarms --alarm-names ${PREFIX}-site-and-cpu --alarm-types CompositeAlarm --query 'CompositeAlarms[0].StateValue' --output text
@@ -99,19 +103,34 @@ bash test-composite-alarm.sh
 
    Do not forget `--alarm-types CompositeAlarm`. Without it, `describe-alarms` only returns metric alarms, and then it looks as if the alarm does not exist.
 
+4. **Last, it shows the composite alarm's history.** Since the alarms go back so quickly, the history is the reliable proof that the composite alarm went to `ALARM`, even if it is back in `OK`:
+
+   ```
+   aws cloudwatch describe-alarm-history --alarm-name ${PREFIX}-site-and-cpu --alarm-types CompositeAlarm --history-item-type StateUpdate --max-items 4 --query 'AlarmHistoryItems[].[Timestamp,HistorySummary]' --output table
+   ```
+
+   `--alarm-types CompositeAlarm` is needed here too. Without it, the history of a composite alarm is empty.
+
 ## Check the result
 
 - After the first `set-alarm-state`, the composite alarm is unchanged.
 - After the second, it is `ALARM`, and a notification from `<prefix>-site-and-cpu` arrives.
-- The same shows in the console under **All alarms**, but the command is quicker to repeat.
+- The history shows `Alarm updated from OK to ALARM`, and soon after `Alarm updated from ALARM to OK`.
+- The same shows in the console under **Alarms**, but the command is quicker to repeat.
 
 ## Clean up
 
-Delete both composite alarms when you are done, so that they do not cost anything. The single alarms are not affected.
+Delete both composite alarms when you are done, so that they do not cost anything. The single alarms are not affected. One call to `delete-alarms` may delete at most one composite alarm, so delete them one at a time:
 
 ```
-aws cloudwatch delete-alarms --alarm-names ${PREFIX}-site-and-cpu ${PREFIX}-cpu-and-unhealthy
+aws cloudwatch delete-alarms --alarm-names ${PREFIX}-site-and-cpu
 ```
+
+```
+aws cloudwatch delete-alarms --alarm-names ${PREFIX}-cpu-and-unhealthy
+```
+
+See [DeleteAlarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DeleteAlarms.html).
 
 ## One alarm or several
 
@@ -128,14 +147,17 @@ aws cloudwatch delete-alarms --alarm-names ${PREFIX}-site-and-cpu ${PREFIX}-cpu-
 - **The alarm names in the rule must match exactly,** with dashes and lower case. A misspelled name makes the rule point at an alarm that does not exist, and then it does not work as intended.
 - **Quotes are the most common error in the AWS CLI.** If you use double quotes around the names, the shell must get the rule in single quotes, or through variables as in the script. If you mix them up, the double quotes disappear before AWS sees the rule.
 - **If you forget to change `OR` to `AND` in the console,** the composite alarm works as a collection alarm. It goes off when any of the alarms goes off, and you get as many notifications as before, plus one.
-- **There is also a function called actions suppression.** With it, an alarm can silence the actions of a composite alarm, for example during planned maintenance. It has a wait period and an extension period, given in seconds. This guide does not use it.
+- **There is also a function called actions suppression.** With it, an alarm can silence the actions of a composite alarm, for example during planned maintenance. In the console it is **Select suppressor alarm** under **Manage alarm actions**, in the step **Configure actions**. This guide does not use it.
+- **Alarm mute rules silence the actions of up to 100 alarms during a time window,** once or recurring. The alarms are still evaluated, only the actions are muted. They are on the tab **Mute rules** next to **Alarms**. See [Alarm Mute Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/alarm-mute-rules.html).
 - **Do not remove the notifications from the single alarms before the rule is tested.** If you do, and the rule is wrong, you get no alarms at all.
 
 ## Common errors
 
 | Symptom | Cause |
 |---|---|
-| `describe-alarms` shows nothing | `--alarm-types CompositeAlarm` is missing. Without it, only metric alarms are returned. |
+| `describe-alarms` or `describe-alarm-history` shows nothing | `--alarm-types CompositeAlarm` is missing. Without it, only metric alarms are returned. |
+| `ValidationError` from `delete-alarms`: only one composite alarm delete is allowed in single request | Two composite alarms in the same call. Nothing is deleted. Delete them one at a time. |
+| The script reads `OK` after the second `set-alarm-state` | The alarms went back before the state was read. Check the history: it shows whether the composite alarm went to `ALARM`. |
 | The composite alarm never goes to `ALARM` | A name in the rule is misspelled, or the two alarms were not in `ALARM` at the same time. Run the two `set-alarm-state` quickly after each other. |
 | As many notifications as before | The rule uses `OR` instead of `AND`. |
 
@@ -144,4 +166,4 @@ aws cloudwatch delete-alarms --alarm-names ${PREFIX}-site-and-cpu ${PREFIX}-cpu-
 | File | What it is |
 |---|---|
 | `create-composite-alarm.sh` | Creates the composite alarm `<prefix>-site-and-cpu` with the rule site check `AND` CPU, sending to the topic. |
-| `test-composite-alarm.sh` | Sets the two alarms to `ALARM` one after the other and shows the composite alarm's state after each. The clean-up command is at the end. |
+| `test-composite-alarm.sh` | Sets the two alarms to `ALARM` one after the other, shows the composite alarm's state after each, and its history. The clean-up commands are at the end. |
