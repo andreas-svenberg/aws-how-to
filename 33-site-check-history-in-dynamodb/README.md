@@ -98,7 +98,7 @@ The policy allows one action, `dynamodb:PutItem`, on one table. The least possib
 
 ### 4. Save every check
 
-1. Open [site-check-with-history.py](site-check-with-history.py) and copy all of it. In the function, under the tab **Code**, click in `lambda_function.py`, select everything, paste, and click **Deploy**.
+1. Open [site-check-with-history.py](site-check-with-history.py) and copy all of it. In the function, under the tab **Code**, click in `lambda_function.py`, select everything, paste, and click **Deploy**. If the function was created by CloudFormation with the code inline in the template, the file is called `index.py` instead, since CloudFormation always puts inline code in a file named `index`. Paste into `index.py`. The function's handler must then be `index.lambda_handler`, which `aws lambda get-function-configuration --function-name ${PREFIX}-site-check --query Handler --output text` shows.
 
    The code does the same as in guide 31, and then writes one item with `Site`, `CheckedAt`, `Ok` and the response time `Ms`. If the check failed, the error message is added as `Error`. The metrics are sent before the item is written, so they reach CloudWatch even if the write fails.
 
