@@ -51,6 +51,7 @@ up afterwards.
 | 30 | [Composite alarm](30-composite-alarm/) | Combine other alarms into one that only alerts when a rule is met, for example when two things are wrong at the same time. |
 | 31 | [Site check with Lambda](31-site-check-with-lambda/) | Check a website from the outside every five minutes with a small Lambda function, send availability and response time to CloudWatch, and get an alarm when it stops answering. |
 | 32 | [Alarm to a Discord channel](32-alarm-to-a-discord-channel/) | Send CloudWatch alarms from an SNS topic to a Discord channel with a small Lambda function and the channel's webhook, and see how the same works for Slack, Google Chat and Teams. |
+| 33 | [Site check history in DynamoDB](33-site-check-history-in-dynamodb/) | Save every site check from guide 31 as an item in a DynamoDB table, and ask the table afterwards when the site was down and why. |
 
 ## License
 

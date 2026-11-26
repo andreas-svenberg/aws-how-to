@@ -92,6 +92,7 @@ Remove everything the guide created, when you no longer want the check:
 - **Lambda's default timeout is 3 seconds.** A site that answers slowly then looks like a site that does not answer at all. That is why step 1 sets 20 seconds.
 - **Costs:** a function that runs every five minutes costs very little in Lambda, but its metrics, logs and the alarm cost like all others. Set a retention period on the log group. See [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
 - **To run the check directly, without waiting for the schedule,** you can give the function a function URL, see [guide 29](../29-run-a-lambda-from-the-browser/).
+- **To keep a history of every check,** with the time and any error message, save each check in a DynamoDB table, see [guide 33](../33-site-check-history-in-dynamodb/).
 
 ## Common errors
 
