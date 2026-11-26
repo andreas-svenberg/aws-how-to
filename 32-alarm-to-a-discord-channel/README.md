@@ -35,6 +35,14 @@ If your topic or alarm has another name, use that name instead.
 
 ## Step by step
 
+### 0. Set your prefix
+
+Set the same prefix as in your resource names, in the terminal you use for the steps below. `export` makes the prefix visible also to scripts you run with `bash`, not only to commands you type in the terminal. Do it again if you open a new terminal. See also [Before you start](../README.md#before-you-start) in the root README.
+
+```
+export PREFIX=demo
+```
+
 ### 1. Create a webhook in Discord
 
 1. Click the cogwheel next to the name of the channel that should get the alarms.
