@@ -52,7 +52,9 @@ The same from the AWS CLI:
 aws dynamodb create-table --table-name $PREFIX-site-check-history --attribute-definitions AttributeName=Site,AttributeType=S AttributeName=CheckedAt,AttributeType=S --key-schema AttributeName=Site,KeyType=HASH AttributeName=CheckedAt,KeyType=RANGE --billing-mode PAY_PER_REQUEST
 ```
 
-`PAY_PER_REQUEST` is the on-demand mode.
+- `--attribute-definitions` names the two key attributes and gives their type, `S` for String. Only the key attributes are defined here, since the table has no fixed schema for the rest.
+- `--key-schema` says which attribute is which part of the key: `HASH` is the partition key and `RANGE` is the sort key.
+- `--billing-mode PAY_PER_REQUEST` is the on-demand mode, which AWS describes as the default and recommended mode. You pay per read and write request, and nothing for requests when the table is not used. There is no capacity to decide beforehand, and the table scales by itself. For a site check that writes one item every five minutes, that is the simplest choice. The other mode, provisioned, is described under [Good to know](#good-to-know).
 
 ### 2. Write and read an item by hand
 
