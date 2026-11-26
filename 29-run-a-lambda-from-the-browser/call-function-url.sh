@@ -29,9 +29,13 @@ aws lambda get-policy \
   --query Policy --output text
 
 # --- Clean up after the demo ----------------------------------------------
-# Remove the URL:
-# aws lambda delete-function-url-config --function-name "$FN"
+# Easiest in the console: Configuration, Function URL, Delete, type confirm.
+# The console then also removes the two statements FunctionURLAllowPublicAccess
+# and FunctionURLAllowInvokeAction from the resource-based policy.
 #
-# The policy statements stay. Remove each one with its Sid from get-policy:
-# aws lambda remove-permission --function-name "$FN" \
-#   --statement-id <sid-from-get-policy>
+# With the AWS CLI instead:
+# aws lambda delete-function-url-config --function-name "$FN"
+# Then check the policy, and remove the two statements if they are still there:
+# aws lambda get-policy --function-name "$FN" --query Policy --output text
+# aws lambda remove-permission --function-name "$FN" --statement-id FunctionURLAllowPublicAccess
+# aws lambda remove-permission --function-name "$FN" --statement-id FunctionURLAllowInvokeAction

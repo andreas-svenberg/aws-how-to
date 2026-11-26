@@ -57,15 +57,15 @@ export PREFIX=demo
 
 Create the address in the console, since then you get the resource-based policy as well.
 
-1. Open Lambda in the console, check the region, choose **Functions** in the menu on the left and click on `<prefix>-site-check`.
-2. Click the tab **Configuration**. Inside the tab there is a menu on the left, and there you choose **Function URL**. The first time it says that the function has no address.
-3. Click **Create function URL**. A form opens with the settings for the address.
-4. Choose **NONE** as **Auth type**. Do this only to be able to show the call from an ordinary browser. In real operation you would choose **AWS_IAM**, see the comparison below.
-5. Click **Save**. The address is now shown under **Function URL**. Copy it.
+1. Open Lambda in the console, check the region, go to the list **Event Functions** and click on `<prefix>-site-check`.
+2. Click the tab **Configuration**. Inside the tab there is a menu on the left, and there you choose **Function URL**. It says **No Function URL**, since the function has no address yet.
+3. Click **Edit**. The form **Configure Function URL** opens, with **AWS_IAM** selected as **Auth type**.
+4. Choose **NONE** as **Auth type**. Do this only to be able to show the call from an ordinary browser. In real operation you would choose **AWS_IAM**, see the comparison below. When you choose NONE, the console says that Lambda creates a resource-based policy that makes the function public. Expand **View policy statement** to see the two statements before you save.
+5. Click **Save**. The address is now shown under **Function URL**. Right after saving, a note may say that the function is missing permissions for public access. Reload the page: the note then says that the function URL is public. Copy the address.
 
 ### 2. Call the function
 
-1. Paste the address in the browser and press Enter. The function runs, and the browser shows what the function returns. What that is depends on the function's code. A function written to run on a schedule was not written for a browser, so if the answer looks odd, that is no error.
+1. Paste the address in the browser and press Enter. The function runs, and the browser shows what the function returns. For the site check from guide 31 it is a small JSON answer, for example `{"ms": 34, "ok": 1}`. One visit in a browser can run the function twice: browsers also ask for an icon, `/favicon.ico`, and that request also reaches the address and runs the function.
 2. Fetch the same address with the AWS CLI. That is practical in a script, so that the address does not need to be copied by hand:
 
    ```
@@ -88,7 +88,7 @@ The console has added statements to the function's resource-based policy, and yo
 aws lambda get-policy --function-name ${PREFIX}-site-check
 ```
 
-The answer is a JSON document where the policy itself is a long text string. It should contain two statements with `Principal` `*`: one for `lambda:InvokeFunctionUrl`, and one for `lambda:InvokeFunction` with the condition that the call comes through the address. If a schedule has a statement of its own, it shows there too. Note the ids (`Sid`) of the two new statements, you need them when you clean up.
+The answer is a JSON document where the policy itself is a long text string. It should contain two statements with `Principal` `*`: one for `lambda:InvokeFunctionUrl`, and one for `lambda:InvokeFunction` with the condition that the call comes through the address. The statement for the schedule from guide 31 shows there too. The two new statements always have the ids `FunctionURLAllowPublicAccess` and `FunctionURLAllowInvokeAction`.
 
 ## Check the result
 
@@ -100,17 +100,21 @@ The answer is a JSON document where the policy itself is a long text string. It 
 
 Remove the address when you are done:
 
-- In the console: the tab **Configuration**, **Function URL** in the menu on the left, **Delete**, and confirm.
+- In the console: the tab **Configuration**, **Function URL** in the menu on the left, **Delete**, type `confirm` in the field and click **Delete**. The console also removes the two statements for public access from the resource-based policy.
 - With the AWS CLI:
 
   ```
   aws lambda delete-function-url-config --function-name ${PREFIX}-site-check
   ```
 
-When the address is removed, the statements in the resource-based policy stay. They do no harm without an address, but remove them so that the policy is not misleading. Run the command once for each of the two statements, with its `Sid` from `get-policy`:
+If you removed the address with the AWS CLI, check the policy with `get-policy`. If the two statements are still there, remove them:
 
 ```
-aws lambda remove-permission --function-name ${PREFIX}-site-check --statement-id <sid>
+aws lambda remove-permission --function-name ${PREFIX}-site-check --statement-id FunctionURLAllowPublicAccess
+```
+
+```
+aws lambda remove-permission --function-name ${PREFIX}-site-check --statement-id FunctionURLAllowInvokeAction
 ```
 
 ## NONE compared with AWS_IAM
@@ -143,4 +147,4 @@ aws lambda remove-permission --function-name ${PREFIX}-site-check --statement-id
 
 | File | What it is |
 |---|---|
-| `call-function-url.sh` | Reads the function URL, calls it with `curl` and shows the resource-based policy. The clean-up commands are at the end. |
+| `call-function-url.sh` | Reads the function URL, calls it with `curl` and shows the resource-based policy. The clean-up steps are at the end. |
